@@ -83,9 +83,11 @@
 </head>
 <body>
     <div class="menu-bar">
-        <a href="index.html" id="homeLink">Home</a>
+        <a href="index.html" id="homeLink" class = "active">Home</a>
         <a href="idle.html" id="counterLink">Counter</a>
-        <a href="numbers.html" id="numbersLink" class="active">Number Count</a>
+        <a href="numbers.html" id="numbersLink">Number Count</a>
+        <a href="numbers.html" id="numbersLink">Number Count</a>
+
     </div>
 
     <div class="container">
@@ -104,19 +106,31 @@
         const homeLink = document.getElementById("homeLink");
         const counterLink = document.getElementById("counterLink");
         const numbersLink = document.getElementById("numbersLink");
+        const colorsLink = document.getElementById("colorsLink");
+
 
         // Add event listener to toggle 'active' class
         if (window.location.pathname.includes("index.html")) {
             homeLink.classList.add("active");
             counterLink.classList.remove("active");
             numbersLink.classList.remove("active");
+            colorsLink.classList.remove("active");
+
         } else if (window.location.pathname.includes("idle.html")) {
             counterLink.classList.add("active");
             homeLink.classList.remove("active");
             numbersLink.classList.remove("active");
+            colorsLink.classList.remove("active");
+
         } else if (window.location.pathname.includes("numbers.html")) {
             numbersLink.classList.add("active");
             homeLink.classList.remove("active");
+            counterLink.classList.remove("active");
+            colorsLink.classList.remove("active");
+        } else if (window.location.pathname.includes("colors.html")) {
+            colorsLink.classList.add("active");
+            homeLink.classList.remove("active");
+            numbersLink.classList.remove("active");
             counterLink.classList.remove("active");
         }
     </script>
