@@ -216,6 +216,25 @@
         restartButton.addEventListener('click', () => {
             startNewGame();
         });
+         // Toggle the active state of menu items based on the current page
+        const homeLink = document.getElementById("homeLink");
+        const counterLink = document.getElementById("counterLink");
+        const numbersLink = document.getElementById("numbersLink");
+
+        // Add event listener to toggle 'active' class
+        if (window.location.pathname.includes("index.html")) {
+            homeLink.classList.add("active");
+            counterLink.classList.remove("active");
+            numbersLink.classList.remove("active");
+        } else if (window.location.pathname.includes("idle.html")) {
+            counterLink.classList.add("active");
+            homeLink.classList.remove("active");
+            numbersLink.classList.remove("active");
+        } else if (window.location.pathname.includes("numbers.html")) {
+            numbersLink.classList.add("active");
+            homeLink.classList.remove("active");
+            counterLink.classList.remove("active");
+        }
 
         // Start the first game
         startNewGame();
