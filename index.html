@@ -11,4 +11,18 @@
     <h1>Welcome to the Button Links Page</h1>
     <button onclick="location.href='idle.html'">Go to Game</button>
 </body>
+    <script>
+        // Toggle the active state of menu items based on the current page
+        const homeLink = document.getElementById("homeLink");
+        const counterLink = document.getElementById("counterLink");
+
+        // Add event listener to toggle 'active' class
+        if (window.location.pathname.includes("index.html")) {
+            homeLink.classList.add("active");
+            counterLink.classList.remove("active");
+        } else if (window.location.pathname.includes("idle.html")) {
+            counterLink.classList.add("active");
+            homeLink.classList.remove("active");
+        }
+    </script>
 </html>
