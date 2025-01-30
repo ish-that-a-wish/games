@@ -168,7 +168,7 @@
     <div class="menu-bar">
         <a href="index.html" id="homeLink">Home</a>
         <a href="idle.html" id="counterLink">Counter</a>
-        <a href="timeTracker.html" id="timeTrackerLink" class="active">Time Tracker</a>
+        <a href="numbers.html" id="numbersLink" class="active">Time Tracker</a>
     </div>
 
     <div class="container">
@@ -231,19 +231,19 @@
         // Toggle the active state of menu items based on the current page
         const homeLink = document.getElementById("homeLink");
         const counterLink = document.getElementById("counterLink");
-        const timeTrackerLink = document.getElementById("timeTrackerLink");
+        const numbersLink = document.getElementById("numbersLink");
 
         // Add event listener to toggle 'active' class
         if (window.location.pathname.includes("index.html")) {
             homeLink.classList.add("active");
             counterLink.classList.remove("active");
-            timeTrackerLink.classList.remove("active");
+            numbersLink.classList.remove("active");
         } else if (window.location.pathname.includes("idle.html")) {
             counterLink.classList.add("active");
             homeLink.classList.remove("active");
-            timeTrackerLink.classList.remove("active");
-        } else if (window.location.pathname.includes("timeTracker.html")) {
-            timeTrackerLink.classList.add("active");
+            numbersLink.classList.remove("active");
+        } else if (window.location.pathname.includes("numbers.html")) {
+            numbersLink.classList.add("active");
             homeLink.classList.remove("active");
             counterLink.classList.remove("active");
         }
