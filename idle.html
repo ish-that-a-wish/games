@@ -30,6 +30,32 @@
             flex-direction: column;
         }
 
+        /* Menu bar styling */
+        .menu-bar {
+            background-color: #4CAF50;
+            padding: 15px 0;
+            text-align: center;
+            width: 100%;
+        }
+
+        .menu-bar a {
+            color: white;
+            text-decoration: none;
+            padding: 15px 25px;
+            font-size: 18px;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            border-radius: 5px;
+        }
+
+        .menu-bar a:hover {
+            background-color: #45a049;
+            transform: scale(1.1);
+        }
+
+        .menu-bar a.active {
+            background-color: #45a049;
+        }
+
         /* Container for the content */
         .container {
             background-color: #ffffff;
@@ -140,9 +166,11 @@
 </head>
 <body>
     <div class="menu-bar">
-            <a href="index.html" id="homeLink" class="active">Home</a>
-            <a href="idle.html" id="counterLink">Counter</a>
-        </div>
+        <a href="index.html" id="homeLink">Home</a>
+        <a href="idle.html" id="counterLink">Counter</a>
+        <a href="timeTracker.html" id="timeTrackerLink" class="active">Time Tracker</a>
+    </div>
+
     <div class="container">
         <h1>Time Tracker</h1>
         <p>Time spent on this page:</p>
@@ -199,19 +227,26 @@
             tierElement.className = "tier Newbie";
             updateTimer(); // Recalculate the time
         }
+
         // Toggle the active state of menu items based on the current page
         const homeLink = document.getElementById("homeLink");
         const counterLink = document.getElementById("counterLink");
+        const timeTrackerLink = document.getElementById("timeTrackerLink");
 
         // Add event listener to toggle 'active' class
         if (window.location.pathname.includes("index.html")) {
             homeLink.classList.add("active");
             counterLink.classList.remove("active");
+            timeTrackerLink.classList.remove("active");
         } else if (window.location.pathname.includes("idle.html")) {
             counterLink.classList.add("active");
             homeLink.classList.remove("active");
+            timeTrackerLink.classList.remove("active");
+        } else if (window.location.pathname.includes("timeTracker.html")) {
+            timeTrackerLink.classList.add("active");
+            homeLink.classList.remove("active");
+            counterLink.classList.remove("active");
         }
     </script>
-
 </body>
 </html>
