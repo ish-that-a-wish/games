@@ -1,76 +1,89 @@
 <!DOCTYPE html>
-@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;500&display=swap');
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Number Guessing Game</title>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;500&display=swap" rel="stylesheet">
     <style>
-        
-
-        /* Body styling */
         body {
             font-family: 'Quicksand', sans-serif;
-            background: #f7f7f7;
-            color: #333;
-            text-align: center;
-            padding: 0;
+            background-color: #f1f1f1;
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 100vh;
-            flex-direction: column;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .game-container {
+            text-align: center;
+            background-color: #ffffff;
+            border-radius: 15px;
+            padding: 30px;
+            width: 100%;
+            max-width: 400px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
         }
 
         h1 {
-            font-size: 24px;
+            font-size: 32px;
+            color: #333;
             margin-bottom: 20px;
+            font-weight: 500;
         }
 
         .win-percentage {
-            font-size: 14px;
-            margin-bottom: 15px;
+            font-size: 18px;
+            color: #888;
+            margin-bottom: 20px;
         }
 
         .controls {
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 10px;
+            gap: 20px;
+            margin-bottom: 20px;
         }
 
         .arrow-btn {
-            font-size: 24px;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            background-color: #f0f0f0;
+            font-size: 28px;
+            padding: 15px;
+            border: none;
+            border-radius: 50%;
+            background-color: #4CAF50;
+            color: white;
             cursor: pointer;
-            transition: background-color 0.3s ease;
+            transition: all 0.3s ease;
         }
 
         .arrow-btn:hover {
-            background-color: #dcdcdc;
+            background-color: #45a049;
+            transform: scale(1.1);
         }
 
         #currentGuess {
-            font-size: 24px;
-            font-weight: bold;
-            min-width: 40px;
+            font-size: 32px;
+            font-weight: 600;
+            min-width: 60px;
+            color: #333;
+            margin: 0 10px;
         }
 
         .submit-btn, .restart-btn {
-            margin-top: 20px;
-            padding: 10px 20px;
-            font-size: 16px;
+            margin-top: 30px;
+            padding: 12px 30px;
+            font-size: 18px;
             cursor: pointer;
             border: none;
-            border-radius: 5px;
+            border-radius: 30px;
+            color: white;
+            transition: background-color 0.3s ease;
         }
 
         .submit-btn {
             background-color: #4CAF50;
-            color: white;
         }
 
         .submit-btn:hover {
@@ -79,7 +92,6 @@
 
         .restart-btn {
             background-color: #f44336;
-            color: white;
             display: none;
         }
 
@@ -88,7 +100,21 @@
         }
 
         .attempts-info {
-            margin-top: 15px;
+            font-size: 16px;
+            color: #444;
+            margin-bottom: 20px;
+        }
+
+        #message {
+            font-size: 18px;
+            font-weight: 500;
+            color: #333;
+        }
+
+        .footer {
+            margin-top: 20px;
+            font-size: 14px;
+            color: #aaa;
         }
     </style>
 </head>
@@ -110,7 +136,10 @@
             <span>Attempts: <span id="attemptsRemaining">10</span></span>
         </div>
         <button id="submitGuess" class="submit-btn">Submit Guess</button>
-        <button id="restartBtn" class="restart-btn" style="display:none;">Restart Game</button>
+        <button id="restartBtn" class="restart-btn">Restart Game</button>
+        <div class="footer">
+            <p>Made with ❤️ by ChatGPT</p>
+        </div>
     </div>
 
     <script>
@@ -137,7 +166,6 @@
             attemptsRemainingElement.textContent = attemptsLeft;
             messageElement.textContent = '';
             restartButton.style.display = 'none';
-            totalGames++;
         }
 
         function updateWinPercentage() {
@@ -164,8 +192,9 @@
                 if (currentGuess === randomNumber) {
                     messageElement.textContent = 'Congratulations! You guessed the number!';
                     wins++;
-                    restartButton.style.display = 'block';
+                    totalGames++;
                     updateWinPercentage();
+                    restartButton.style.display = 'block';
                 } else {
                     attemptsLeft--;
                     attemptsRemainingElement.textContent = attemptsLeft;
@@ -176,6 +205,8 @@
                     }
                     if (attemptsLeft === 0) {
                         messageElement.textContent = `Game Over! The correct number was ${randomNumber}.`;
+                        totalGames++;
+                        updateWinPercentage();
                         restartButton.style.display = 'block';
                     }
                 }
