@@ -81,14 +81,16 @@
 
         .result {
             margin-top: 20px;
-            font-size: 18px;
+            font-size: 32px;
             font-weight: 600;
             color: #333;
         }
 
-        .hex-code {
-            font-size: 20px;
-            color: #555;
+        .funny-comment {
+            font-size: 24px;
+            color: #777;
+            margin-top: 10px;
+            font-style: italic;
         }
     </style>
 </head>
@@ -122,7 +124,7 @@
     </div>
 
     <div class="result" id="result"></div>
-    <div class="hex-code" id="hexCode"></div>
+    <div class="funny-comment" id="funnyComment"></div>
 
     <script>
         // Generate a random target color
@@ -147,10 +149,6 @@
             const userBlue = document.getElementById('blue').value;
             colorBox.style.backgroundColor = `rgb(${userRed}, ${userGreen}, ${userBlue})`;
         }
-
-        // Display target color in hex code
-        const hexCodeElement = document.getElementById('hexCode');
-        hexCodeElement.textContent = `Target Color (Hex): #${targetColor.red.toString(16).padStart(2, '0')}${targetColor.green.toString(16).padStart(2, '0')}${targetColor.blue.toString(16).padStart(2, '0')}`;
 
         // Sliders and their values
         const redSlider = document.getElementById('red');
@@ -193,11 +191,31 @@
             return 100 - accuracy;  // Return percentage of accuracy
         }
 
+        // Generate funny comments based on accuracy
+        function generateFunnyComment(accuracy) {
+            if (accuracy === 100) {
+                return "Wow, you were off by a million!";
+            } else if (accuracy >= 80) {
+                return "Oof, how average!";
+            } else if (accuracy >= 60) {
+                return "So close, but not good enough!";
+            } else if (accuracy >= 40) {
+                return "You tried, but not quite there.";
+            } else {
+                return "Yikes! You might need more practice...";
+            }
+        }
+
         // Handle submit button click
         document.getElementById('submitBtn').addEventListener('click', () => {
             const accuracy = calculateAccuracy();
             const resultElement = document.getElementById('result');
+            const funnyCommentElement = document.getElementById('funnyComment');
+
             resultElement.textContent = `Your accuracy: ${accuracy}%`;
+
+            // Generate and display a funny comment based on accuracy
+            funnyCommentElement.textContent = generateFunnyComment(accuracy);
 
             // Optionally change the color of the result text based on accuracy
             if (accuracy === 100) {
