@@ -22,7 +22,7 @@
             background: #f7f7f7;
             color: #333;
             text-align: center;
-            padding: 0;
+            padding-top: 70px; /* Adjusted to prevent content from being hidden under the fixed menu */
             display: flex;
             justify-content: center;
             align-items: center;
@@ -32,10 +32,14 @@
 
         /* Menu bar styling */
         .menu-bar {
-            background-color: #4c58af;
+            background-color: #45a049; /* Match the highlight green */
+            position: fixed; /* Fix the menu bar at the top */
+            top: 0;
+            left: 0;
+            right: 0;
             padding: 15px 0;
             text-align: center;
-            width: 100%;
+            z-index: 1000; /* Ensure it's on top */
         }
 
         .menu-bar a {
@@ -48,12 +52,12 @@
         }
 
         .menu-bar a:hover {
-            background-color: #45a049;
+            background-color: #368e3f; /* Darker shade of green for hover */
             transform: scale(1.1);
         }
 
         .menu-bar a.active {
-            background-color: #45a049;
+            background-color: #368e3f; /* Darker green for active link */
         }
 
         /* Container for the content */
