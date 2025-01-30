@@ -22,10 +22,19 @@
             margin-bottom: 20px;
         }
 
+        /* Display the target color in its own square */
         .color-box {
             width: 200px;
             height: 200px;
             margin-bottom: 20px;
+            border-radius: 8px;
+            background-color: #ffffff;
+        }
+
+        .target-color-box {
+            width: 200px;
+            height: 200px;
+            margin-bottom: 30px;
             border-radius: 8px;
             background-color: #ffffff;
         }
@@ -85,6 +94,9 @@
 </head>
 <body>
     <h1>Match the Color Game</h1>
+    <!-- Display target color in a separate box -->
+    <div class="target-color-box" id="targetColorBox"></div>
+
     <div class="color-box" id="colorBox"></div>
     
     <div class="controls">
@@ -123,11 +135,20 @@
 
         const targetColor = generateRandomColor();
 
-        // Update the color box to match the random color
-        const colorBox = document.getElementById('colorBox');
-        colorBox.style.backgroundColor = `rgb(${targetColor.red}, ${targetColor.green}, ${targetColor.blue})`;
+        // Update the target color box to show the random color
+        const targetColorBox = document.getElementById('targetColorBox');
+        targetColorBox.style.backgroundColor = `rgb(${targetColor.red}, ${targetColor.green}, ${targetColor.blue})`;
 
-        // Display the target color's hex code
+        // Update the color box as user adjusts sliders
+        const colorBox = document.getElementById('colorBox');
+        function updateUserColorBox() {
+            const userRed = document.getElementById('red').value;
+            const userGreen = document.getElementById('green').value;
+            const userBlue = document.getElementById('blue').value;
+            colorBox.style.backgroundColor = `rgb(${userRed}, ${userGreen}, ${userBlue})`;
+        }
+
+        // Display target color in hex code
         const hexCodeElement = document.getElementById('hexCode');
         hexCodeElement.textContent = `Target Color (Hex): #${targetColor.red.toString(16).padStart(2, '0')}${targetColor.green.toString(16).padStart(2, '0')}${targetColor.blue.toString(16).padStart(2, '0')}`;
 
@@ -142,12 +163,15 @@
         // Function to update the values on the sliders
         redSlider.addEventListener('input', () => {
             redValue.textContent = redSlider.value;
+            updateUserColorBox();
         });
         greenSlider.addEventListener('input', () => {
             greenValue.textContent = greenSlider.value;
+            updateUserColorBox();
         });
         blueSlider.addEventListener('input', () => {
             blueValue.textContent = blueSlider.value;
+            updateUserColorBox();
         });
 
         // Function to check the accuracy of the color
@@ -184,6 +208,9 @@
                 resultElement.style.color = 'red';
             }
         });
+
+        // Update the initial color box display
+        updateUserColorBox();
     </script>
 </body>
 </html>
