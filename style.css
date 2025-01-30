@@ -56,8 +56,6 @@ h1 {
 .tier {
     font-size: 24px;
     font-weight: 500;
-    color: #66cc66;
-    background: #e0f7e8;
     padding: 10px 20px;
     border-radius: 12px;
     display: inline-block;
@@ -94,7 +92,7 @@ p {
     color: #555;
 }
 
-/* Style for 'Newbie', 'Explorer', 'Veteran', 'Master' */
+/* Tier styles with different background colors and text colors */
 #tier.Newbie {
     background-color: #ffe0e0;
     color: #ff6f61;
@@ -113,4 +111,20 @@ p {
 #tier.Master {
     background-color: #fff2cc;
     color: #ffb84d;
+}
+
+#tier.Legend {
+    background-color: #f8d7e4;
+    color: #d470ab;
+}
+
+#tier.Epic {
+    background-color: #d7f8e4;
+    color: #3bc54b;
+}
+
+#tier.Godlike {
+    background-color: #f0f0f0;
+    color: #333;
+    font-weight: bold;
 }
