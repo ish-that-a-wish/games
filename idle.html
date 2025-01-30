@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Time Tracker</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 50px;
+            background-color: #f0f0f0;
+        }
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            margin: 0 auto;
+        }
+        h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        p {
+            font-size: 18px;
+            margin: 10px 0;
+        }
+        .tier {
+            font-size: 20px;
+            font-weight: bold;
+            color: #4CAF50;
+        }
+        .timer {
+            font-size: 22px;
+            font-weight: bold;
+            margin: 20px 0;
+        }
+        .tier-info {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Time Tracker</h1>
+        <p>Time spent on this page:</p>
+        <div class="timer" id="timer">0:00</div>
+        <div class="tier-info">
+            <p>Your Tier:</p>
+            <p class="tier" id="tier">Newbie</p>
+        </div>
+    </div>
+
+    <script>
+        let startTime = Date.now();
+        let timerElement = document.getElementById('timer');
+        let tierElement = document.getElementById('tier');
+        
+        function updateTimer() {
+            let elapsedTime = Date.now() - startTime; // Time in milliseconds
+            let minutes = Math.floor(elapsedTime / 60000);
+            let seconds = Math.floor((elapsedTime % 60000) / 1000);
+            timerElement.textContent = `${minutes}:${seconds < 10 ? '0' + seconds : seconds}`;
+            
+            // Update tier based on time spent
+            if (elapsedTime < 60000) {
+                tierElement.textContent = "Newbie";
+            } else if (elapsedTime < 300000) {
+                tierElement.textContent = "Explorer";
+            } else if (elapsedTime < 600000) {
+                tierElement.textContent = "Veteran";
+            } else {
+                tierElement.textContent = "Master";
+            }
+        }
+
+        setInterval(updateTimer, 1000); // Update every second
+    </script>
+
+</body>
+</html>
