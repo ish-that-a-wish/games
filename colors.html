@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Match the Color Game</title>
+    <style>
+        body {
+            font-family: 'Quicksand', sans-serif;
+            background-color: #f1f1f1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+            margin: 0;
+        }
+
+        h1 {
+            font-size: 32px;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .color-box {
+            width: 200px;
+            height: 200px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            background-color: #ffffff;
+        }
+
+        .controls {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .slider-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+        }
+
+        .slider-container label {
+            width: 40px;
+            text-align: center;
+            font-size: 16px;
+            color: #333;
+        }
+
+        .slider-container input[type="range"] {
+            width: 150px;
+        }
+
+        .submit-btn {
+            padding: 10px 20px;
+            font-size: 18px;
+            cursor: pointer;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 30px;
+            transition: background-color 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            background-color: #45a049;
+        }
+
+        .result {
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .hex-code {
+            font-size: 20px;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+    <h1>Match the Color Game</h1>
+    <div class="color-box" id="colorBox"></div>
+    
+    <div class="controls">
+        <div class="slider-container">
+            <label for="red">R:</label>
+            <input type="range" id="red" min="0" max="255" value="128">
+            <span id="redValue">128</span>
+        </div>
+
+        <div class="slider-container">
+            <label for="green">G:</label>
+            <input type="range" id="green" min="0" max="255" value="128">
+            <span id="greenValue">128</span>
+        </div>
+
+        <div class="slider-container">
+            <label for="blue">B:</label>
+            <input type="range" id="blue" min="0" max="255" value="128">
+            <span id="blueValue">128</span>
+        </div>
+
+        <button class="submit-btn" id="submitBtn">Submit</button>
+    </div>
+
+    <div class="result" id="result"></div>
+    <div class="hex-code" id="hexCode"></div>
+
+    <script>
+        // Generate a random target color
+        function generateRandomColor() {
+            const red = Math.floor(Math.random() * 256);
+            const green = Math.floor(Math.random() * 256);
+            const blue = Math.floor(Math.random() * 256);
+            return { red, green, blue };
+        }
+
+        const targetColor = generateRandomColor();
+
+        // Update the color box to match the random color
+        const colorBox = document.getElementById('colorBox');
+        colorBox.style.backgroundColor = `rgb(${targetColor.red}, ${targetColor.green}, ${targetColor.blue})`;
+
+        // Display the target color's hex code
+        const hexCodeElement = document.getElementById('hexCode');
+        hexCodeElement.textContent = `Target Color (Hex): #${targetColor.red.toString(16).padStart(2, '0')}${targetColor.green.toString(16).padStart(2, '0')}${targetColor.blue.toString(16).padStart(2, '0')}`;
+
+        // Sliders and their values
+        const redSlider = document.getElementById('red');
+        const greenSlider = document.getElementById('green');
+        const blueSlider = document.getElementById('blue');
+        const redValue = document.getElementById('redValue');
+        const greenValue = document.getElementById('greenValue');
+        const blueValue = document.getElementById('blueValue');
+
+        // Function to update the values on the sliders
+        redSlider.addEventListener('input', () => {
+            redValue.textContent = redSlider.value;
+        });
+        greenSlider.addEventListener('input', () => {
+            greenValue.textContent = greenSlider.value;
+        });
+        blueSlider.addEventListener('input', () => {
+            blueValue.textContent = blueSlider.value;
+        });
+
+        // Function to check the accuracy of the color
+        function calculateAccuracy() {
+            const userRed = parseInt(redSlider.value);
+            const userGreen = parseInt(greenSlider.value);
+            const userBlue = parseInt(blueSlider.value);
+
+            const colorDistance = Math.abs(userRed - targetColor.red) +
+                Math.abs(userGreen - targetColor.green) +
+                Math.abs(userBlue - targetColor.blue);
+
+            // Max possible difference: 255 * 3 (because we have three colors)
+            const maxDifference = 255 * 3;
+
+            // Calculate accuracy as a percentage (0 = perfect match, 100 = farthest from target)
+            const accuracy = ((colorDistance / maxDifference) * 100).toFixed(2);
+
+            return 100 - accuracy;  // Return percentage of accuracy
+        }
+
+        // Handle submit button click
+        document.getElementById('submitBtn').addEventListener('click', () => {
+            const accuracy = calculateAccuracy();
+            const resultElement = document.getElementById('result');
+            resultElement.textContent = `Your accuracy: ${accuracy}%`;
+
+            // Optionally change the color of the result text based on accuracy
+            if (accuracy === 100) {
+                resultElement.style.color = 'green';
+            } else if (accuracy >= 80) {
+                resultElement.style.color = 'yellow';
+            } else {
+                resultElement.style.color = 'red';
+            }
+        });
+    </script>
+</body>
+</html>
