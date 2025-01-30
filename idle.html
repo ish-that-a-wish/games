@@ -69,11 +69,11 @@
             timerElement.textContent = `${minutes}:${seconds < 10 ? '0' + seconds : seconds}`;
             
             // Update tier based on time spent
-            if (elapsedTime < 60000) {
+            if (elapsedTime < 10000) {
                 tierElement.textContent = "Newbie";
-            } else if (elapsedTime < 300000) {
+            } else if (elapsedTime < 30000) {
                 tierElement.textContent = "Explorer";
-            } else if (elapsedTime < 600000) {
+            } else if (elapsedTime < 60000) {
                 tierElement.textContent = "Veteran";
             } else {
                 tierElement.textContent = "Master";
