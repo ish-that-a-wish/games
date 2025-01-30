@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Number Guessing Game</title>
+    <style>
+        body {
+            font-family: Quicksand, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f7f7f7;
+        }
+
+        .game-container {
+            text-align: center;
+            padding: 20px;
+            border-radius: 8px;
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+        }
+
+        h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .win-percentage {
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+
+        .controls {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .arrow-btn {
+            font-size: 24px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f0f0f0;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .arrow-btn:hover {
+            background-color: #dcdcdc;
+        }
+
+        #currentGuess {
+            font-size: 24px;
+            font-weight: bold;
+            min-width: 40px;
+        }
+
+        .submit-btn, .restart-btn {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+        }
+
+        .submit-btn {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .submit-btn:hover {
+            background-color: #45a049;
+        }
+
+        .restart-btn {
+            background-color: #f44336;
+            color: white;
+            display: none;
+        }
+
+        .restart-btn:hover {
+            background-color: #e57373;
+        }
+
+        .attempts-info {
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="game-container">
+        <h1>Number Guessing Game</h1>
+        <div class="win-percentage">
+            <span>Win %: <span id="winPercentage">0</span></span>
+        </div>
+
+        <p>Guess the number between 1 and 100</p>
+        <div class="controls">
+            <button id="lowerBtn" class="arrow-btn">⬅️</button>
+            <span id="currentGuess">50</span>
+            <button id="higherBtn" class="arrow-btn">➡️</button>
+        </div>
+        <p id="message"></p>
+        <div class="attempts-info">
+            <span>Attempts: <span id="attemptsRemaining">10</span></span>
+        </div>
+        <button id="submitGuess" class="submit-btn">Submit Guess</button>
+        <button id="restartBtn" class="restart-btn" style="display:none;">Restart Game</button>
+    </div>
+
+    <script>
+        let currentGuess = 50;
+        let attemptsLeft = 10;
+        let randomNumber;
+        let wins = 0;
+        let totalGames = 0;
+
+        const currentGuessElement = document.getElementById('currentGuess');
+        const attemptsRemainingElement = document.getElementById('attemptsRemaining');
+        const messageElement = document.getElementById('message');
+        const winPercentageElement = document.getElementById('winPercentage');
+        const submitGuessButton = document.getElementById('submitGuess');
+        const restartButton = document.getElementById('restartBtn');
+        const lowerBtn = document.getElementById('lowerBtn');
+        const higherBtn = document.getElementById('higherBtn');
+
+        function startNewGame() {
+            randomNumber = Math.floor(Math.random() * 100) + 1;
+            attemptsLeft = 10;
+            currentGuess = 50;
+            currentGuessElement.textContent = currentGuess;
+            attemptsRemainingElement.textContent = attemptsLeft;
+            messageElement.textContent = '';
+            restartButton.style.display = 'none';
+            totalGames++;
+        }
+
+        function updateWinPercentage() {
+            const winPercentage = totalGames > 0 ? ((wins / totalGames) * 100).toFixed(2) : 0;
+            winPercentageElement.textContent = winPercentage;
+        }
+
+        lowerBtn.addEventListener('click', () => {
+            if (currentGuess > 1) {
+                currentGuess--;
+                currentGuessElement.textContent = currentGuess;
+            }
+        });
+
+        higherBtn.addEventListener('click', () => {
+            if (currentGuess < 100) {
+                currentGuess++;
+                currentGuessElement.textContent = currentGuess;
+            }
+        });
+
+        submitGuessButton.addEventListener('click', () => {
+            if (attemptsLeft > 0) {
+                if (currentGuess === randomNumber) {
+                    messageElement.textContent = 'Congratulations! You guessed the number!';
+                    wins++;
+                    restartButton.style.display = 'block';
+                    updateWinPercentage();
+                } else {
+                    attemptsLeft--;
+                    attemptsRemainingElement.textContent = attemptsLeft;
+                    if (currentGuess < randomNumber) {
+                        messageElement.textContent = 'Your guess is too low.';
+                    } else {
+                        messageElement.textContent = 'Your guess is too high.';
+                    }
+                    if (attemptsLeft === 0) {
+                        messageElement.textContent = `Game Over! The correct number was ${randomNumber}.`;
+                        restartButton.style.display = 'block';
+                    }
+                }
+            }
+        });
+
+        restartButton.addEventListener('click', () => {
+            startNewGame();
+        });
+
+        // Start the first game
+        startNewGame();
+    </script>
+</body>
+</html>
